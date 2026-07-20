@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>GE · Geometrie · Erzählt LA</title>
+
+<style>
+body { background:#000; color:#0ff; font-family:Consolas; padding:20px; }
+h1 { color:#6cf; }
+h2 { color:#0f0; margin-top:30px; }
+pre { background:#111; padding:12px; border:1px solid #333; border-radius:6px; }
+a { color:#6cf; }
+</style>
+
+<script>
+async function load() {
+    const r = await fetch("GE.json");
+    return r.ok ? await r.json() : null;
+}
+
+function render(d) {
+    document.getElementById("struktur").textContent =
+        d.punkt + " / " + d.linie + " / " + d.flaeche + " / " + d.raum;
+
+    document.getElementById("stabil").textContent =
+        "1e=" + d["1e"] + ", 3e=" + d["3e"] + ", 6e=" + d["6e"] +
+        ", 9e=" + d["9e"] + ", 12e=" + d["12e"];
+
+    document.getElementById("story").textContent =
+        "GE baut die Struktur auf den Achsen von LA. " +
+        "LA liefert die Lage, GE liefert die Form. " +
+        "Zusammen ergeben sie das Original: LAGE.";
+}
+
+async function start() {
+    const d = await load();
+    if (d) render(d);
+}
+</script>
+</head>
+
+<body onload="start()">
+
+<h1>GE · Geometrie</h1>
+
+<h2>Struktur</h2>
+<pre id="struktur">Lade…</pre>
+
+<h2>12e-Stabilität</h2>
+<pre id="stabil">Lade…</pre>
+
+<h2>GE erzählt LA</h2>
+<pre id="story">Lade…</pre>
+
+<h2>Weiter zu LA</h2>
+<a href="../LA/index.html">LA · Lage-Achsen</a>
+
+</body>
+</html>
